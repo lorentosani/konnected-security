@@ -1,0 +1,11 @@
+#!/bin/bash
+
+FILE=manifest.json
+echo "{" > ${FILE}
+
+for file in src/*
+do
+  echo "  \"${file}\":\"$(git ls-files -s ${file} | awk '{print $2}')\"," >> ${FILE}
+done
+echo "  \"manifest.json\":\"$(git ls-files -s manifest.json | awk '{print $2}')\"" >> ${FILE}
+echo "}" >> ${FILE}
